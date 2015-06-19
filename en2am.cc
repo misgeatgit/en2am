@@ -111,7 +111,7 @@ string translator::to_amharic(const string& english_str) {
 
 int main(int c, char** args) {
 	translator ts(KEY_MAP);
-	string eng = "tabadaa yasharmu`taa lj";
+	string eng = "^a`man ^a`nji ^atfraa";
 	cout << "Converting " << eng << endl;
 	cout << ts.to_amharic(eng) << endl;
 	return 0;
