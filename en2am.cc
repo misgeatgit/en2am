@@ -140,7 +140,7 @@ string translator::to_amharic(const string& english_str) {
 
 int main(int c, char** args) {
 	translator ts(KEY_MAP);
-	string eng = "^a`man ^a`nji ^atfraa";
+	string eng = "^a`man ^a`nji ^atfraa"; // This is from Mark 5:36. See the amharic form by runnig it.
 	cout << "Converting " << eng << endl;
 	cout << ts.to_amharic(eng) << endl;
 	return 0;
