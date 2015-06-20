@@ -9,3 +9,7 @@ I don't really get why all the tools I know don't do the conversion in batch mod
 So I started writing my own batch mode converter. The trick here is introducing
 a different sequency for the vowels which will avoid confusion during token
 matching and eases everything else to code.I'll describe this may be later. Enough for now.Adios!
+
+##References
+
+[http://www.omniglot.com/writing/ethiopic.htm]
