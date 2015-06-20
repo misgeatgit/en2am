@@ -105,17 +105,16 @@ vector<string> translator::match_key(const string& word) {
 
 string translator::to_amharic(const string& english_str) {
 	vector<string> lines = tokenize(english_str, '\n');
-	for (string line : lines) {
+	for (auto lniter = lines.begin(); lniter != lines.end(); ++lniter) {
+		vector<string> winp = tokenize(*lniter, ' ');
 
-		vector<string> winp = tokenize(line, ' ');
 		for (size_t i = 0; i < winp.size(); i++) {
 			string wout; //Amharic output. A unicode string
-
 			string word = winp[i];
 			while (word.size() != 0) {
-				cout << "Matching " << word << endl;
-				vector<string> matched = match_key(word); // {en_key,am_equivalent}
 
+				//cout << "Matching " << word << endl;
+				vector<string> matched = match_key(word); // {en_key,am_equivalent}
 				if (matched.size() != 2)
 					throw invalid_argument(
 							"No matching key found in word " + word);
