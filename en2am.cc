@@ -32,6 +32,8 @@
 #include <vector>
 #include <stdexcept>
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 #include "en_am.h"
 
@@ -131,16 +133,45 @@ string translator::to_amharic(const string& english_str) {
 		}
 
 		//cout << "Adding new line" << endl;
-		sconverted += "\n";
+		if (lniter != lines.end()-1)
+			sconverted += "\n";
 	}
 
 	return sconverted;
 }
 
-int main(int c, char** args) {
+string readf(const string& path) {
+	ifstream in(path);
+	stringstream buffer;
+	buffer << in.rdbuf();
+	string input = buffer.str();
+	//cout << "Input is " << input << endl;
+
+	return input;
+}
+
+void writef(string& input, const string& fname) {
+	ofstream outf;
+	outf.open(fname.c_str());
+	outf << input;
+	outf.close();
+}
+
+int main(int argc, char** args) {
+	if (argc < 2) {
+		throw invalid_argument(
+				"Wrong number of arguments.\n Usage \n  en2am [input_file_path] [output_file_path]");
+	}
+
+	string in_path(args[1]);
+	string out_path(args[2]);
+
+	string raw_input = readf(in_path);
 	translator ts(KEY_MAP);
-	string eng = "^a`man ^a`nji ^atfraa"; // This is from Mark 5:36. See the amharic form by runnig it.
-	cout << "Converting " << eng << endl;
-	cout << ts.to_amharic(eng) << endl;
+	auto converted = ts.to_amharic(raw_input);
+	writef(converted, out_path);
+
+	//cout << converted << endl;
+
 	return 0;
 }
