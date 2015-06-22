@@ -117,9 +117,10 @@ string translator::to_amharic(const string& english_str) {
 
 				//cout << "Matching " << word << endl;
 				vector<string> matched = match_key(word); // {en_key,am_equivalent}
-				if (matched.size() != 2)
-					throw invalid_argument(
-							"No matching key found in word " + word);
+				if (matched.size() != 2) {
+					wout += word;
+					break;
+				}
 				//cout << matched[0] <<" matched with " << matched[1] << endl;
 				wout += matched[1]; //append translation token.
 				//trim from the front
@@ -133,7 +134,7 @@ string translator::to_amharic(const string& english_str) {
 		}
 
 		//cout << "Adding new line" << endl;
-		if (lniter != lines.end()-1)
+		if (lniter != lines.end() - 1)
 			sconverted += "\n";
 	}
 
