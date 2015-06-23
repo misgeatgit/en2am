@@ -41,8 +41,8 @@ using namespace std;
 
 class translator {
 private:
-    string sconverted; //converted to amharic string. should be unicode;
-    map<string, string>& conv_tbl; //xxx should be unicode strings
+    string sconverted;
+    map<string, string>& conv_tbl;
 
     vector<string> match_key(const string& word);
     vector<string> tokenize(string text, char sep);
@@ -56,7 +56,7 @@ public:
     {
     }
 
-    string to_amharic(const string& english_str); //xxx should be a unicode return value
+    string to_amharic(const string& english_str);
 };
 
 vector<string> translator::tokenize(string text, char sep)
@@ -120,17 +120,14 @@ string translator::to_amharic(const string& english_str)
             string word = winp[i];
             while (word.size() != 0) {
 
-                //cout << "Matching " << word << endl;
                 vector<string> matched = match_key(word); // {en_key,am_equivalent}
                 if (matched.size() != 2) {
                     wout += word;
                     break;
                 }
-                //cout << matched[0] <<" matched with " << matched[1] << endl;
                 wout += matched[1]; //append translation token.
                 //trim from the front
                 word.erase(0, matched[0].size());
-                // cout << "After erasure " << word << " " << word.size() << endl;
             }
 
             sconverted += wout;
@@ -138,7 +135,6 @@ string translator::to_amharic(const string& english_str)
                 sconverted += " ";
         }
 
-        //cout << "Adding new line" << endl;
         if (lniter != lines.end() - 1)
             sconverted += "\n";
     }
@@ -152,7 +148,6 @@ string readf(const string& path)
     stringstream buffer;
     buffer << in.rdbuf();
     string input = buffer.str();
-    //cout << "Input is " << input << endl;
 
     return input;
 }
@@ -179,8 +174,6 @@ int main(int argc, char** args)
     translator ts(KEY_MAP);
     auto converted = ts.to_amharic(raw_input);
     writef(converted, out_path);
-
-    //cout << converted << endl;
 
     return 0;
 }
