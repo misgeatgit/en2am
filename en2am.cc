@@ -144,12 +144,16 @@ string translator::to_amharic(const string& english_str)
 
 string readf(const string& path)
 {
-    ifstream in(path);
-    stringstream buffer;
-    buffer << in.rdbuf();
-    string input = buffer.str();
-
-    return input;
+    try {
+        ifstream in(path);
+        stringstream buffer;
+        buffer << in.rdbuf();
+        string input = buffer.str();
+        in.close();
+        return input;
+    } catch (ifstream::failure e) {
+        cout << "ERROR \n" << e.what() << endl;
+    }
 }
 
 void writef(string& input, const string& fname)
@@ -162,18 +166,29 @@ void writef(string& input, const string& fname)
 
 int main(int argc, char** args)
 {
-    if (argc < 2) {
-        throw invalid_argument(
-                "Wrong number of arguments.\n Usage \n  en2am [input_file_path] [output_file_path]");
+    const string usage =
+            "Usage \n  en2am [input_file_path] [output_file_path] \n en2am [\"STRING\"] \n en2am --help";
+    if (argc < 1 or argc > 3)
+        throw invalid_argument("Wrong number of arguments.\n " + usage);
+
+    string raw_input;
+    string out_path;
+
+    if (argc == 3) {
+        string in_path(args[1]);
+        raw_input = readf(string(in_path));
+        out_path= (string)args[2];
+    } else {
+        raw_input= (string)args[1];
     }
 
-    string in_path(args[1]);
-    string out_path(args[2]);
-
-    string raw_input = readf(in_path);
     translator ts(KEY_MAP);
-    auto converted = ts.to_amharic(raw_input);
-    writef(converted, out_path);
+    string converted = ts.to_amharic(raw_input);
+
+    if (out_path.size() != 0)
+        writef(converted, out_path);
+    else
+        cout << converted << endl;
 
     return 0;
 }
