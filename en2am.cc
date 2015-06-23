@@ -41,137 +41,146 @@ using namespace std;
 
 class translator {
 private:
-	string sconverted; //converted to amharic string. should be unicode;
-	map<string, string>& conv_tbl; //xxx should be unicode strings
+    string sconverted; //converted to amharic string. should be unicode;
+    map<string, string>& conv_tbl; //xxx should be unicode strings
 
-	vector<string> match_key(const string& word);
-	vector<string> tokenize(string text, char sep);
+    vector<string> match_key(const string& word);
+    vector<string> tokenize(string text, char sep);
 
 public:
-	translator(map<string, string>& _conv_tbl) :
-			conv_tbl(_conv_tbl) {
-	}
-	virtual ~translator() {
-	}
+    translator(map<string, string>& _conv_tbl) :
+            conv_tbl(_conv_tbl)
+    {
+    }
+    virtual ~translator()
+    {
+    }
 
-	string to_amharic(const string& english_str); //xxx should be a unicode return value
+    string to_amharic(const string& english_str); //xxx should be a unicode return value
 };
 
-vector<string> translator::tokenize(string text, char sep) {
-	vector<string> tokens;
-	int start = 0, end = 0;
+vector<string> translator::tokenize(string text, char sep)
+{
+    vector<string> tokens;
+    int start = 0, end = 0;
 
-	while ((end = text.find(sep, start)) != string::npos) {
-		tokens.push_back(text.substr(start, end - start));
-		start = end + 1;
-	}
-	tokens.push_back(text.substr(start));
+    while ((end = text.find(sep, start)) != string::npos) {
+        tokens.push_back(text.substr(start, end - start));
+        start = end + 1;
+    }
+    tokens.push_back(text.substr(start));
 
-	return tokens;
+    return tokens;
 }
 
-vector<string> translator::match_key(const string& word) {
-	string matched_key = "";
+vector<string> translator::match_key(const string& word)
+{
+    string matched_key = "";
 
-	for (auto iter = conv_tbl.begin(); iter != conv_tbl.end(); ++iter) {
-		bool match = false;
-		string key = iter->first;
+    for (auto iter = conv_tbl.begin(); iter != conv_tbl.end(); ++iter) {
+        bool match = false;
+        string key = iter->first;
 
-		if (key.size() > word.size())
-			continue;
+        if (key.size() > word.size())
+            continue;
 
-		for (int i = 0; i < key.size(); i++) {
-			if (key.at(i) != word.at(i)) {
-				match = false;
-				break;
-			} else {
-				match = true;
-			}
-		}
+        for (int i = 0; i < key.size(); i++) {
+            if (key.at(i) != word.at(i)) {
+                match = false;
+                break;
+            } else {
+                match = true;
+            }
+        }
 
-		if (match) {
-			if (matched_key == "") {
-				matched_key = key;
-			} else {
-				if (key.size() > matched_key.size())
-					matched_key = key;
-			}
-		}
-	}
+        if (match) {
+            if (matched_key == "") {
+                matched_key = key;
+            } else {
+                if (key.size() > matched_key.size())
+                    matched_key = key;
+            }
+        }
+    }
 
-	if (matched_key != "")
-		return vector<string> { matched_key, conv_tbl[matched_key] }; //no match found
-	else
-		return vector<string> { };
+    if (matched_key != "")
+        return vector<string> { matched_key, conv_tbl[matched_key] }; //no match found
+    else
+        return vector<string> { };
 }
 
-string translator::to_amharic(const string& english_str) {
-	vector<string> lines = tokenize(english_str, '\n');
-	for (auto lniter = lines.begin(); lniter != lines.end(); ++lniter) {
-		vector<string> winp = tokenize(*lniter, ' ');
+string translator::to_amharic(const string& english_str)
+{
+    vector<string> lines = tokenize(english_str, '\n');
+    for (auto lniter = lines.begin(); lniter != lines.end(); ++lniter) {
+        vector<string> winp = tokenize(*lniter, ' ');
 
-		for (size_t i = 0; i < winp.size(); i++) {
-			string wout; //Amharic output. A unicode string
-			string word = winp[i];
-			while (word.size() != 0) {
+        for (size_t i = 0; i < winp.size(); i++) {
+            string wout; //Amharic output. A unicode string
+            string word = winp[i];
+            while (word.size() != 0) {
 
-				//cout << "Matching " << word << endl;
-				vector<string> matched = match_key(word); // {en_key,am_equivalent}
-				if (matched.size() != 2)
-					throw invalid_argument(
-							"No matching key found in word " + word);
-				//cout << matched[0] <<" matched with " << matched[1] << endl;
-				wout += matched[1]; //append translation token.
-				//trim from the front
-				word.erase(0, matched[0].size());
-				// cout << "After erasure " << word << " " << word.size() << endl;
-			}
+                //cout << "Matching " << word << endl;
+                vector<string> matched = match_key(word); // {en_key,am_equivalent}
+                if (matched.size() != 2) {
+                    wout += word;
+                    break;
+                }
+                //cout << matched[0] <<" matched with " << matched[1] << endl;
+                wout += matched[1]; //append translation token.
+                //trim from the front
+                word.erase(0, matched[0].size());
+                // cout << "After erasure " << word << " " << word.size() << endl;
+            }
 
-			sconverted += wout;
-			if (i != winp.size())
-				sconverted += " ";
-		}
+            sconverted += wout;
+            if (i != winp.size())
+                sconverted += " ";
+        }
 
-		//cout << "Adding new line" << endl;
-		if (lniter != lines.end()-1)
-			sconverted += "\n";
-	}
+        //cout << "Adding new line" << endl;
+        if (lniter != lines.end() - 1)
+            sconverted += "\n";
+    }
 
-	return sconverted;
+    return sconverted;
 }
 
-string readf(const string& path) {
-	ifstream in(path);
-	stringstream buffer;
-	buffer << in.rdbuf();
-	string input = buffer.str();
-	//cout << "Input is " << input << endl;
+string readf(const string& path)
+{
+    ifstream in(path);
+    stringstream buffer;
+    buffer << in.rdbuf();
+    string input = buffer.str();
+    //cout << "Input is " << input << endl;
 
-	return input;
+    return input;
 }
 
-void writef(string& input, const string& fname) {
-	ofstream outf;
-	outf.open(fname.c_str());
-	outf << input;
-	outf.close();
+void writef(string& input, const string& fname)
+{
+    ofstream outf;
+    outf.open(fname.c_str());
+    outf << input;
+    outf.close();
 }
 
-int main(int argc, char** args) {
-	if (argc < 2) {
-		throw invalid_argument(
-				"Wrong number of arguments.\n Usage \n  en2am [input_file_path] [output_file_path]");
-	}
+int main(int argc, char** args)
+{
+    if (argc < 2) {
+        throw invalid_argument(
+                "Wrong number of arguments.\n Usage \n  en2am [input_file_path] [output_file_path]");
+    }
 
-	string in_path(args[1]);
-	string out_path(args[2]);
+    string in_path(args[1]);
+    string out_path(args[2]);
 
-	string raw_input = readf(in_path);
-	translator ts(KEY_MAP);
-	auto converted = ts.to_amharic(raw_input);
-	writef(converted, out_path);
+    string raw_input = readf(in_path);
+    translator ts(KEY_MAP);
+    auto converted = ts.to_amharic(raw_input);
+    writef(converted, out_path);
 
-	//cout << converted << endl;
+    //cout << converted << endl;
 
-	return 0;
+    return 0;
 }
