@@ -41,68 +41,72 @@ using namespace std;
 
 class translator {
 private:
-	string sconverted; //converted to amharic string. should be unicode;
-	map<string, string>& conv_tbl; //xxx should be unicode strings
+    string sconverted;
+    map<string, string>& conv_tbl;
 
-	vector<string> match_key(const string& word);
-	vector<string> tokenize(string text, char sep);
+    vector<string> match_key(const string& word);
+    vector<string> tokenize(string text, char sep);
 
 public:
-	translator(map<string, string>& _conv_tbl) :
-			conv_tbl(_conv_tbl) {
-	}
-	virtual ~translator() {
-	}
+    translator(map<string, string>& _conv_tbl) :
+            conv_tbl(_conv_tbl)
+    {
+    }
+    virtual ~translator()
+    {
+    }
 
-	string to_amharic(const string& english_str); //xxx should be a unicode return value
+    string to_amharic(const string& english_str);
 };
 
-vector<string> translator::tokenize(string text, char sep) {
-	vector<string> tokens;
-	int start = 0, end = 0;
+vector<string> translator::tokenize(string text, char sep)
+{
+    vector<string> tokens;
+    int start = 0, end = 0;
 
-	while ((end = text.find(sep, start)) != string::npos) {
-		tokens.push_back(text.substr(start, end - start));
-		start = end + 1;
-	}
-	tokens.push_back(text.substr(start));
+    while ((end = text.find(sep, start)) != string::npos) {
+        tokens.push_back(text.substr(start, end - start));
+        start = end + 1;
+    }
+    tokens.push_back(text.substr(start));
 
-	return tokens;
+    return tokens;
 }
 
-vector<string> translator::match_key(const string& word) {
-	string matched_key = "";
+vector<string> translator::match_key(const string& word)
+{
+    string matched_key = "";
 
-	for (auto iter = conv_tbl.begin(); iter != conv_tbl.end(); ++iter) {
-		bool match = false;
-		string key = iter->first;
+    for (auto iter = conv_tbl.begin(); iter != conv_tbl.end(); ++iter) {
+        bool match = false;
+        string key = iter->first;
 
-		if (key.size() > word.size())
-			continue;
+        if (key.size() > word.size())
+            continue;
 
-		for (int i = 0; i < key.size(); i++) {
-			if (key.at(i) != word.at(i)) {
-				match = false;
-				break;
-			} else {
-				match = true;
-			}
-		}
+        for (int i = 0; i < key.size(); i++) {
+            if (key.at(i) != word.at(i)) {
+                match = false;
+                break;
+            } else {
+                match = true;
+            }
+        }
 
-		if (match) {
-			if (matched_key == "") {
-				matched_key = key;
-			} else {
-				if (key.size() > matched_key.size())
-					matched_key = key;
-			}
-		}
-	}
+        if (match) {
+            if (matched_key == "") {
+                matched_key = key;
+            } else {
+                if (key.size() > matched_key.size())
+                    matched_key = key;
+            }
+        }
+    }
 
-	if (matched_key != "")
-		return vector<string> { matched_key, conv_tbl[matched_key] }; //no match found
-	else
-		return vector<string> { };
+    if (matched_key != "")
+        return vector<string> { matched_key, conv_tbl[matched_key] }; //no match found
+    else
+        return vector<string> { };
 }
 
 string translator::to_amharic(const string& english_str) {
@@ -141,38 +145,53 @@ string translator::to_amharic(const string& english_str) {
 	return sconverted;
 }
 
-string readf(const string& path) {
-	ifstream in(path);
-	stringstream buffer;
-	buffer << in.rdbuf();
-	string input = buffer.str();
-	//cout << "Input is " << input << endl;
-
-	return input;
+string readf(const string& path)
+{
+    try {
+        ifstream in(path);
+        stringstream buffer;
+        buffer << in.rdbuf();
+        string input = buffer.str();
+        in.close();
+        return input;
+    } catch (ifstream::failure e) {
+        cout << "ERROR \n" << e.what() << endl;
+    }
 }
 
-void writef(string& input, const string& fname) {
-	ofstream outf;
-	outf.open(fname.c_str());
-	outf << input;
-	outf.close();
+void writef(string& input, const string& fname)
+{
+    ofstream outf;
+    outf.open(fname.c_str());
+    outf << input;
+    outf.close();
 }
 
-int main(int argc, char** args) {
-	if (argc < 2) {
-		throw invalid_argument(
-				"Wrong number of arguments.\n Usage \n  en2am [input_file_path] [output_file_path]");
-	}
+int main(int argc, char** args)
+{
+    const string usage =
+            "Usage \n  en2am [input_file_path] [output_file_path] \n en2am [\"STRING\"] \n en2am --help";
+    if (argc < 1 or argc > 3)
+        throw invalid_argument("Wrong number of arguments.\n " + usage);
 
-	string in_path(args[1]);
-	string out_path(args[2]);
+    string raw_input;
+    string out_path;
 
-	string raw_input = readf(in_path);
-	translator ts(KEY_MAP);
-	auto converted = ts.to_amharic(raw_input);
-	writef(converted, out_path);
+    if (argc == 3) {
+        string in_path(args[1]);
+        raw_input = readf(string(in_path));
+        out_path= (string)args[2];
+    } else {
+        raw_input= (string)args[1];
+    }
 
-	//cout << converted << endl;
+    translator ts(KEY_MAP);
+    string converted = ts.to_amharic(raw_input);
 
-	return 0;
+    if (out_path.size() != 0)
+        writef(converted, out_path);
+    else
+        cout << converted << endl;
+
+    return 0;
 }
