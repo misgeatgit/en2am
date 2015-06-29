@@ -109,6 +109,7 @@ vector<string> translator::match_key(const string& word)
         return vector<string> { };
 }
 
+<<<<<<< HEAD:en2am.cc
 string translator::to_amharic(const string& english_str) {
 	vector<string> lines = tokenize(english_str, '\n');
 	for (auto lniter = lines.begin(); lniter != lines.end(); ++lniter) {
@@ -143,6 +144,59 @@ string translator::to_amharic(const string& english_str) {
 	}
 
 	return sconverted;
+=======
+string translator::to_amharic(const string& english_str)
+{
+    vector<string> lines = tokenize(english_str, '\n');
+    bool scape = false;
+    for (auto lniter = lines.begin(); lniter != lines.end(); ++lniter) {
+        string line = *lniter;
+
+        /*
+        size_t begpos = line.find(guard_begin);
+        if (pos != string::npos) {
+            size_t endpos = line.find(guard_end);
+            if (endpse == string::npos) {
+                scape = true;
+                sconverted += line.substr(begpos + 1, line.size() - begpos);
+                if (lniter != lines.end() - 1)
+                    sconverted += "\n";
+                continue;
+            } else {
+                scape = true;
+                sconverted += line.substr(begpos + 1, endpos - 1);
+            }
+        }
+        */
+
+        vector<string> winp = tokenize(line, ' ');
+
+        for (size_t i = 0; i < winp.size(); i++) {
+            string wout; //Amharic output. A unicode string
+            string word = winp[i];
+            while (word.size() != 0) {
+
+                vector<string> matched = match_key(word); // {en_key,am_equivalent}
+                if (matched.size() != 2) {
+                    wout += word;
+                    break;
+                }
+                wout += matched[1]; //append translation token.
+                //trim from the front
+                word.erase(0, matched[0].size());
+            }
+
+            sconverted += wout;
+            if (i != winp.size())
+                sconverted += " ";
+        }
+
+        if (lniter != lines.end() - 1)
+            sconverted += "\n";
+    }
+
+    return sconverted;
+>>>>>>> 3b214bce8b66da89266dd66cdb7df3b9c6313af2:core/en2am.cc
 }
 
 string readf(const string& path)
@@ -180,9 +234,9 @@ int main(int argc, char** args)
     if (argc == 3) {
         string in_path(args[1]);
         raw_input = readf(string(in_path));
-        out_path= (string)args[2];
+        out_path = (string) args[2];
     } else {
-        raw_input= (string)args[1];
+        raw_input = (string) args[1];
     }
 
     translator ts(KEY_MAP);

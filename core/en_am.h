@@ -33,6 +33,9 @@
 #ifndef _EN_AM_H_
 #define _EN_AM_H_
 
+const char guard_begin = '{';
+const char guard_end = '}';
+
 std::map<std::string,std::string> KEY_MAP={
                                  {"ha","ሀ"},{"hu","ሁ"},{"hi","ሂ"},{"haa","ሃ"},{"he","ሄ"},{"h","ህ"},{"ho","ሆ"},
                                  {"'ha","ሐ"},{"'hu","ሑ"},{"'hi","ሒ"},{"'haa","ሓ"},{"'he","ሔ"},{"'h","ሕ"},{"'ho","ሖ"},{"'hua","ሗ"},
