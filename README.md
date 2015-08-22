@@ -17,8 +17,10 @@ Currently the tool can only be used from the command line
 
 example
 
-en2am "yh yae^tyophya hzb dmts naw"
+>en2am  "yh ya^etyophyaa hzb dmts naw"
+>ይህ የኤትዮጵያ ህዝብ ድምፅ ነው 
 
+All mappings are found in core/en2am.h
 
 ##References
 
