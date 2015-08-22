@@ -18,14 +18,13 @@
 SystrayWindow::SystrayWindow()
 {
 	createIconGroupBox();
-	createMessageGroupBox();
-
+	
 	iconLabel->setMinimumWidth(durationLabel->sizeHint().width());
 
 	createActions();
 	createTrayIcon();
 
-	connect(showMessageButton, SIGNAL(clicked()), this, SLOT(showMessage()));
+	connect(converterButton, SIGNAL(clicked()), this, SLOT(showMessage()));
 	connect(showIconCheckBox, SIGNAL(toggled(bool)),
 			trayIcon, SLOT(setVisible(bool)));
 	connect(iconComboBox, SIGNAL(currentIndexChanged(int)),
@@ -105,28 +104,6 @@ void SystrayWindow::messageClicked()
 	QMessageBox::information(0, tr("Systray"),
 			tr("Sorry, I already gave what help I could.\n"
 				"Maybe you should try asking a human?"));
-}
-
-void SystrayWindow::createIconGroupBox()
-{
-	iconGroupBox = new QGroupBox(tr("Tray Icon"));
-
-	iconLabel = new QLabel("Icon:");
-
-	iconComboBox = new QComboBox;
-	iconComboBox->addItem(QIcon(":/images/bad.png"), tr("Bad"));
-	iconComboBox->addItem(QIcon(":/images/heart.png"), tr("Heart"));
-	iconComboBox->addItem(QIcon(":/images/trash.png"), tr("Trash"));
-
-	showIconCheckBox = new QCheckBox(tr("Show icon"));
-	showIconCheckBox->setChecked(true);
-
-	QHBoxLayout *iconLayout = new QHBoxLayout;
-	iconLayout->addWidget(iconLabel);
-	iconLayout->addWidget(iconComboBox);
-	iconLayout->addStretch();
-	iconLayout->addWidget(showIconCheckBox);
-	iconGroupBox->setLayout(iconLayout);
 }
 
 void SystrayWindow::createMessageGroupBox()
@@ -209,8 +186,7 @@ void SystrayWindow::createTrayIcon()
 	trayIconMenu->addAction(minimizeAction);
 	trayIconMenu->addAction(maximizeAction);
 	trayIconMenu->addAction(restoreAction);
-	trayIconMenu->addSeparator();
-	trayIconMenu->addAction(quitAction);
+	
 
 	trayIcon = new QSystemTrayIcon(this);
 	trayIcon->setContextMenu(trayIconMenu);
