@@ -1,14 +1,24 @@
 
 #EN2AM
 
-I found typing amharic with the current tools very boring and discouraging. I
-am continiously pausing to check if the combination of english characters I
-typed are properly converted to the equivalent **single** amharic character.
-I don't really get why all the tools I know don't do the conversion in batch mode?
+I started this project because I didn't find the current amharic typing natural.
+People on facebook and other chat applications type english that has an amharic
+meaning when read by the other party. If we can adopt the same priniciple and
+have the implementation, it would encourage people to write more in Amharic
+by making it less daunting for them.
 
-So I started writing my own batch mode converter. The trick here is introducing
-a different sequency for the vowels which will avoid confusion during token
-matching and eases everything else to code.I'll describe this may be later. Enough for now.Adios!
+#Requirement
+
+C++11 compiler and CMake
+
+#Runnig
+
+Currently the tool can only be used from the command line
+
+example
+
+en2am "yh yae^tyophya hzb dmts naw"
+
 
 ##References
 
