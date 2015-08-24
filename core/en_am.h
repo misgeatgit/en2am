@@ -27,11 +27,12 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#include <map>
-#include <string>
-
+ 
 #ifndef _EN_AM_H_
 #define _EN_AM_H_
+
+#include <map>
+#include <string>
 
 const char guard_begin = '{';
 const char guard_end = '}';
