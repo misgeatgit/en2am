@@ -26,6 +26,13 @@ example
 
 All mappings are found in core/en2am.h
 
+##Todo
+
+- [] GUI client
+- [] Mobile client
+- [] Make user configurable mapping
+- [] Package program for V1 beta release
+
 ##References
 
 [http://www.omniglot.com/writing/ethiopic.htm]
