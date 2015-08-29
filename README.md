@@ -22,6 +22,8 @@ example
 
 >ይህ የኤትዮጵያ ህዝብ ድምፅ ነው 
 
+**Note:** You may use programs like xclip for transferrign CLI text to teh OS's clipboard.
+
 All mappings are found in core/en2am.h
 
 ##References
