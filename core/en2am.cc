@@ -187,9 +187,11 @@ void writef(string& input, const string& fname)
 int main(int argc, char** args)
 {
 	const string usage =
-		"Usage \n  en2am [input_file_path] [output_file_path] \n en2am [\"STRING\"] \n en2am --help";
-	if (argc < 1 or argc > 3)
-		throw invalid_argument("Wrong number of arguments.\n " + usage);
+		"Usage \n  en2am [input_file_path] [output_file_path] \n  en2am [\"STRING\"] \n";
+	if (argc < 2  or argc > 3){
+		std::cout << "Wrong number of arguments.\n " <<  usage << std::endl;
+		return 0;
+         }
 
 	string raw_input;
 	string out_path;
