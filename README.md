@@ -17,11 +17,14 @@ Currently the tool can only be used from the command line
 
 example
 
->en2am  "yh ya^etyophyaa hzb dmts naw"
+>en2am  "yh ya^ityophyaa hzb dmts naw"
 
->ይህ የኤትዮጵያ ህዝብ ድምፅ ነው 
+>ይህ የኢትዮጵያ ህዝብ ድምፅ ነው  
 
 **Note:** You may use programs like xclip for transferrign CLI text to teh OS's clipboard.
+eg. on linux:
+
+> en2am  "yh ya^ityophyaa hzb dmts naw" | xclip -selection clip
 
 All mappings are found in core/en2am.h
 
