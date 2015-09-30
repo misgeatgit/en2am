@@ -17,6 +17,11 @@ Currently the tool can only be used from the command line
 
 example
 
+>en2am
+> Usage 
+>  en2am [input_file_path] [output_file_path] 
+>  en2am ["STRING"] 
+
 >en2am  "yh ya^ityophyaa hzb dmts naw"
 
 >ይህ የኢትዮጵያ ህዝብ ድምፅ ነው  
