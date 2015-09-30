@@ -15,9 +15,9 @@ C++11 compiler and CMake
 
 Currently only the cli is buildable. To build the cli 
 
->en2am> cd core
->en2am/core> cmake ..
->en2am/core> make
+> en2am> cd core
+> en2am/core> cmake ..
+> en2am/core> make
 
 
 #Runnig
