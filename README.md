@@ -11,6 +11,15 @@ is to convert in batch mode on every line or on the event of some key hit.
 
 C++11 compiler and CMake
 
+#Building 
+
+Currently only the cli is buildable. To build the cli 
+
+>en2am> cd core
+>en2am/core> cmake ..
+>en2am/core> make
+
+
 #Runnig
 
 Currently the tool can only be used from the command line
