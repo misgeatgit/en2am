@@ -1,7 +1,7 @@
 
 #EN2AM
 
-Why? I didn't like the way current converters work. They make me typing speed because each
+Why? I didn't like the way current converters work. They make my typing speed slow because each
 group of characters are converted on the fly as one is typing and that makes me stop for a while till
 I figure out where the cursor is repositoned. So I thought best approach not to loose speed is to convert
 in batch mode on every line or on the event of some key hit.
