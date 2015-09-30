@@ -1,11 +1,11 @@
 
 #EN2AM
 
-I started this project because I didn't find the current amharic typing natural.
-Peole are striving to type fast and thus typing in english that gives an amharic meaning when
-read by others.I have attempted to implement a converter that adheres to the need of the above
-kind of people. i.e type fast in english but get it in amharic on the fly.I think this is cooler
-than Power geez.
+Why? I didn't like the way current converters work. They make me typing speed because each
+group of characters are converted on the fly as one is typing and that makes me stop for a while till
+I figure out where the cursor is repositoned. So I thought best approach not to loose speed is to convert
+in batch mode on every line or on the event of some key hit.
+
 
 #Requirement
 
