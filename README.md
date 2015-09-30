@@ -2,11 +2,10 @@
 #EN2AM
 
 I started this project because I didn't find the current amharic typing natural.
-People on facebook and other chat applications type english that has an amharic
-meaning when read by the other party. If we can adopt this priniciple and
-have the converter implemented, it would encourage people to write more in Amharic
-by using an english keyboard and without the caveat of loosing speed while typing using
-the current amharic typing programs.
+Peole are striving to type fast and thus typing in english that gives an amharic meaning when
+read by others.I have attempted to implement a converter that adheres to the need of the above
+kind of people. i.e type fast in english but get it in amharic on the fly.I think this is cooler
+than Power geez.
 
 #Requirement
 
