@@ -30,11 +30,11 @@ example
 
 >en2am/core> ./en2am
 
->en2am/core> Usage 
+> Usage 
 
->en2am/core>  ./en2am [input_file_path] [output_file_path] 
+> en2am [input_file_path] [output_file_path] 
 
->en2am/core>  ./en2am ["STRING"] 
+> en2am ["STRING"] 
 
 >en2am/core> ./en2am  "yh ya^ityophyaa hzb dmts naw"
 
