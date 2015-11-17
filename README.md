@@ -15,11 +15,11 @@ C++11 compiler and CMake
 
 Currently only the cli is buildable. To build the cli 
 
-> en2am> cd core
+> en2am> mkdir build && cd build
 
-> en2am/core> cmake ..
+> en2am/build> cmake ..
 
-> en2am/core> make
+> en2am/build> make
 
 
 #Runnig
@@ -28,7 +28,7 @@ Currently the tool can only be used from the command line
 
 example
 
->en2am/core> ./en2am
+>en2am/build> ./en2am
 
 > Usage 
 
