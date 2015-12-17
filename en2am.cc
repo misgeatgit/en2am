@@ -35,7 +35,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "en_am.h"
+#include "en2am.h"
 
 using namespace std;
 
