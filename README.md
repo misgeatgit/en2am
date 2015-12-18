@@ -40,7 +40,7 @@ example
 
 >ይህ የኢትዮጵያ ህዝብ ድምፅ ነው  
 
-**Note:** You may use programs like xclip for transferrign CLI text to teh OS's clipboard.
+**Note:** You may use programs like [xclip](http://linux.die.net/man/1/xclip) for transferrign CLI text to teh OS's clipboard.
 eg. on linux:
 
 > en2am  "yh ya^ityophyaa hzb dmts naw" | xclip -selection clip
