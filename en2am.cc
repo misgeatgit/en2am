@@ -27,13 +27,13 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#include <map>
-#include <string>
-#include <vector>
-#include <stdexcept>
-#include <iostream>
 #include <fstream>
+#include <iostream>
+#include <map>
 #include <sstream>
+#include <string>
+#include <stdexcept>
+#include <vector>
 
 #include "en2am.h"
 
