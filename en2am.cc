@@ -77,20 +77,18 @@ vector<string> translator::match_key(const string& word)
 {
     string matched_key = "";
 
-    for (auto iter = conv_tbl.begin(); iter != conv_tbl.end(); ++iter) {
-        bool match = false;
+    for (auto iter = conv_tbl.begin(); iter != conv_tbl.end(); ++iter) {        
         string key = iter->first;
 
         if (key.size() > word.size())
             continue;
-
+        
+        bool match = true;
         for (int i = 0; i < key.size(); i++) {
             if (key.at(i) != word.at(i)) {
                 match = false;
                 break;
-            } else {
-                match = true;
-            }
+            }            
         }
 
         if (match) {
