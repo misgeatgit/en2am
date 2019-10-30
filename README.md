@@ -1,10 +1,10 @@
 
 #EN2AM
 
-Why? I didn't like the way current converters work. They make my typing speed slow because each
-group of characters are converted on the fly as one is typing and that makes me stop for a while
-till I figure out where the caret is repositoned. So I thought best approach not to loose speed 
-is to convert in batch mode on every line or on the event of some key hit.
+Why I created it? I didn't like the way current converters work. They slow down my typing speed because each
+group of characters are converted on the fly as I am typing another, causing me to stop for a while
+until I am able to figure out where the caret has been repositoned. I thought the best approach to not loosing speed 
+would be to convert it using batch mode on every line or in the event of a key hit.
 
 
 #Requirement
